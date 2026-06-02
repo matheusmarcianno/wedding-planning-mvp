@@ -43,8 +43,7 @@ export const steps = [
 export const trustContent = {
   title: 'Criado com apoio de profissionais do mercado de eventos',
   text: 'Este diagnóstico foi estruturado com base na experiência prática de profissionais que atuam na organização de casamentos e eventos.',
-  image:
-    'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1100&q=82',
+  image: '/experience-real-events.jpg',
 };
 
 export const finalCTAContent = {

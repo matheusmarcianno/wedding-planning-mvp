@@ -10,7 +10,7 @@ export function TrustSection() {
     <section className="section trust" ref={sectionRef} aria-labelledby="trust-title">
       <Container className="trust__layout">
         <div className="trust__media">
-          <img src={trustContent.image} alt="Decoração elegante de casamento ao ar livre" />
+          <img src={trustContent.image} alt="Mesa de doces com arranjos florais em casamento" />
         </div>
         <div className="trust__copy">
           <SectionHeader
