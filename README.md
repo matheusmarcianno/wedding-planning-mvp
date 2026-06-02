@@ -105,9 +105,9 @@ https://tally.so/r/Bz068e
 
 O projeto nao cria depoimentos, reviews ou promessas falsas. A secao de confianca usa apenas texto institucional sobre apoio de profissionais do mercado de eventos.
 
-## Deploy na Cloudflare Pages
+## Deploy na Cloudflare Workers
 
-Plataforma recomendada: Cloudflare Pages.
+Plataforma recomendada: Cloudflare Workers com assets estaticos via Wrangler.
 
 Motivos:
 
@@ -121,8 +121,7 @@ Motivos:
 Configuracao do projeto:
 
 ```text
-Framework preset: React (Vite)
-Build command: npm run build
+Build command: npm run deploy
 Build output directory: dist
 Production branch: main
 Root directory: /
@@ -132,7 +131,7 @@ Fluxo de deploy:
 
 1. Suba o repositorio para o GitHub.
 2. No painel da Cloudflare, acesse Workers & Pages.
-3. Crie uma aplicacao Pages conectada ao GitHub.
+3. Crie uma aplicacao Workers conectada ao GitHub.
 4. Selecione este repositorio.
 5. Use as configuracoes acima.
 6. Adicione variaveis de ambiente apenas se forem necessarias.
@@ -146,7 +145,7 @@ Deploys automaticos:
 
 Dominio customizado e HTTPS:
 
-1. No projeto da Cloudflare Pages, abra Custom domains.
+1. No projeto da Cloudflare Workers, abra Custom domains.
 2. Adicione o dominio principal, por exemplo `www.seudominio.com`.
 3. Configure o DNS seguindo as instrucoes da Cloudflare.
 4. Aguarde o certificado HTTPS ficar ativo.
@@ -161,12 +160,13 @@ Se uma integracao publica for adicionada no futuro, use apenas variaveis com pre
 Detalhes importantes para Vite:
 
 - O build de producao sai em `dist/`.
-- `vite.config.ts` usa `base: '/'`, adequado para Cloudflare Pages e dominios customizados.
-- `public/_redirects` garante fallback para `index.html` em rotas do React Router.
+- `vite.config.ts` usa `base: '/'`, adequado para Cloudflare Workers e dominios customizados.
+- `wrangler.jsonc` usa `not_found_handling: single-page-application`, que garante fallback para `index.html` em rotas do React Router.
+- Nao use `public/_redirects` neste projeto, porque o deploy via Workers Assets rejeita esse fallback como um loop.
 
 Teste apos publicar:
 
-- Abra a URL `*.pages.dev`.
+- Abra a URL gerada pela Cloudflare.
 - Abra o dominio customizado com HTTPS.
 - Teste mobile e desktop.
 - Clique nos CTAs e confirme o redirecionamento para o Tally.
@@ -177,10 +177,11 @@ Teste apos publicar:
 Erros comuns:
 
 - Pagina em branco: confirme que `base` esta como `/`.
-- `dist` nao encontrado: confirme que o build command e `npm run build`.
+- `dist` nao encontrado: confirme que o comando de deploy e `npm run deploy`, que executa o build antes do `wrangler deploy`.
 - Variavel `undefined`: use prefixo `VITE_` e redeploy apos alterar variaveis.
-- 404 ao atualizar rota: confirme que `public/_redirects` foi publicado.
-- Problema de dominio/HTTPS: confirme o dominio no Pages, os registros DNS e aguarde propagacao.
+- 404 ao atualizar rota: confirme `not_found_handling: single-page-application` em `wrangler.jsonc`.
+- Erro de loop em `_redirects`: remova `public/_redirects`, pois o fallback e configurado no `wrangler.jsonc`.
+- Problema de dominio/HTTPS: confirme o dominio no Workers, os registros DNS e aguarde propagacao.
 
 ## Qualidade
 
