@@ -7,13 +7,21 @@ import { HeroSection } from '../components/sections/HeroSection';
 import { HowItWorksSection } from '../components/sections/HowItWorksSection';
 import { MobileStickyCTA } from '../components/sections/MobileStickyCTA';
 import { TrustSection } from '../components/sections/TrustSection';
-import { TALLY_FORM_URL } from '../constants/landing';
 import { LandingPage } from '../pages/LandingPage';
 import { trackCTA, trackPageView, trackSectionView } from '../utils/analytics';
+import { TALLY_FORM_URL } from '../utils/tallyUrl';
 
 function renderWithRouter(ui: React.ReactElement) {
   return render(<MemoryRouter>{ui}</MemoryRouter>);
 }
+
+function setPageSearch(search: string) {
+  window.history.pushState({}, '', search ? `/${search}` : '/');
+}
+
+beforeEach(() => {
+  setPageSearch('');
+});
 
 describe('HeroSection', () => {
   it('renders the headline and CTA with the Tally URL', () => {
@@ -106,6 +114,27 @@ describe('LandingPage', () => {
 
     expect(screen.getByRole('link', { name: 'Começar Diagnóstico Gratuito' })).toBeVisible();
     expect(screen.getByRole('link', { name: 'Iniciar Diagnóstico' })).toBeVisible();
+  });
+
+  it('forwards the current query params to every Tally CTA', () => {
+    setPageSearch('?utm_source=instagram&utm_medium=bio&utm_campaign=mvp_validacao');
+
+    renderWithRouter(<LandingPage />);
+
+    const expectedUrl = `${TALLY_FORM_URL}?utm_source=instagram&utm_medium=bio&utm_campaign=mvp_validacao`;
+
+    expect(screen.getByRole('link', { name: 'Começar Diagnóstico Gratuito' })).toHaveAttribute(
+      'href',
+      expectedUrl,
+    );
+    expect(screen.getByRole('link', { name: 'Iniciar Diagnóstico' })).toHaveAttribute(
+      'href',
+      expectedUrl,
+    );
+    expect(screen.getByRole('link', { name: 'Começar Diagnóstico' })).toHaveAttribute(
+      'href',
+      expectedUrl,
+    );
   });
 });
 

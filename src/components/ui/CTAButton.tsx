@@ -1,7 +1,7 @@
 import type { AnchorHTMLAttributes, PropsWithChildren } from 'react';
 
-import { TALLY_FORM_URL } from '../../constants/landing';
 import { trackCTA } from '../../utils/analytics';
+import { buildTallyUrl } from '../../utils/tallyUrl';
 
 type CTAButtonProps = PropsWithChildren<
   AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -16,7 +16,7 @@ export function CTAButton({
   location,
   variant = 'primary',
   onClick,
-  href = TALLY_FORM_URL,
+  href = buildTallyUrl(window.location.search),
   ...props
 }: CTAButtonProps) {
   return (
