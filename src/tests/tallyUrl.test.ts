@@ -8,15 +8,13 @@ describe('buildTallyUrl', () => {
   });
 
   it('appends utm_source, utm_medium and utm_campaign', () => {
-    expect(
-      buildTallyUrl('?utm_source=instagram&utm_medium=bio&utm_campaign=mvp_validacao'),
-    ).toBe(`${TALLY_FORM_URL}?utm_source=instagram&utm_medium=bio&utm_campaign=mvp_validacao`);
+    expect(buildTallyUrl('?utm_source=instagram&utm_medium=bio&utm_campaign=mvp_validacao')).toBe(
+      `${TALLY_FORM_URL}?utm_source=instagram&utm_medium=bio&utm_campaign=mvp_validacao`,
+    );
   });
 
   it('works when search starts with a question mark', () => {
-    expect(buildTallyUrl('?utm_source=instagram')).toBe(
-      `${TALLY_FORM_URL}?utm_source=instagram`,
-    );
+    expect(buildTallyUrl('?utm_source=instagram')).toBe(`${TALLY_FORM_URL}?utm_source=instagram`);
   });
 
   it('works when search does not start with a question mark', () => {
@@ -27,5 +25,11 @@ describe('buildTallyUrl', () => {
     expect(buildTallyUrl('?ref=abc&coupon=noivas2026&debug=true')).toBe(
       `${TALLY_FORM_URL}?ref=abc&coupon=noivas2026&debug=true`,
     );
+  });
+
+  it('preserves the encoding, order and duplicates of campaign parameters', () => {
+    const search = '?utm_content=Jo%C3%A3o+e+Ana&utm_content=RSVP%2F1&ref=&preview';
+
+    expect(buildTallyUrl(search)).toBe(`${TALLY_FORM_URL}${search}`);
   });
 });

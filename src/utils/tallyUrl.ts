@@ -1,6 +1,4 @@
-import { TALLY_FORM_URL } from '../constants/landing';
-
-export { TALLY_FORM_URL };
+export const TALLY_FORM_URL = 'https://tally.so/r/Bz068e';
 
 export function buildTallyUrl(search?: string): string {
   const normalizedSearch = search?.trim();

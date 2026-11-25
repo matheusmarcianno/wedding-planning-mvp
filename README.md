@@ -1,27 +1,27 @@
 # Wedding Planning MVP
 
-Landing page mobile-first para validar uma ideia de negocio de planejamento de casamento no Brasil.
-
-O projeto direciona casais para um diagnostico gratuito no Tally, com foco em gerar leads qualificados para profissionais de planejamento e cerimonial.
+Landing page responsiva do Cerimonial por Excelência, por Victoria Klein. Apresenta os serviços e mantém o diagnóstico original conectado ao formulário do Tally.
 
 ## Objetivo
 
-Validar a hipotese de que casais que completam um diagnostico estruturado geram leads mais qualificados para wedding planners.
+Apresentar a identidade, os serviços e o processo de trabalho do Cerimonial por Excelência, convertendo interessados em diagnósticos pelo Tally e conversas pelo WhatsApp.
 
 Fluxo principal:
 
-1. Atrair casais planejando casamento.
-2. Explicar o valor do diagnostico.
-3. Incentivar o preenchimento do formulario.
-4. Redirecionar para o Tally: https://tally.so/r/Bz068e
+1. Apresentar assessoria de casamentos, celebrações e eventos corporativos.
+2. Convidar casais ao diagnóstico gratuito original: `https://tally.so/r/Bz068e`.
+3. Explicar o processo, os diferenciais e a região de atendimento.
+4. Direcionar outros tipos de evento e dúvidas ao WhatsApp da cerimonialista.
 
 ## Features
 
 - Landing page em portugues do Brasil.
 - Experiencia mobile-first para trafego vindo de Instagram, WhatsApp, stories e indicacoes.
-- Hero com imagem de casamento, proposta de valor e CTA acima da dobra.
-- Secoes de beneficios, funcionamento, confianca e CTA final.
-- CTA sticky no mobile apontando para o formulario do Tally.
+- Hero com imagem editorial, proposta de valor e CTA para o diagnóstico acima da dobra.
+- Seções de diagnóstico, serviços, benefícios, processo, cobertura, dúvidas e CTA final.
+- CTAs de casamento para o Tally, preservando parâmetros de campanha da URL atual.
+- CTAs de celebrações, eventos corporativos e disponibilidade regional para WhatsApp.
+- Imagens editoriais produzidas para o protótipo Stitch e prompt de design em `docs/stitch-prompt.md`.
 - SEO com title, meta description, Open Graph, Twitter Card e favicon.
 - Camada de analytics sem fornecedor externo para eventos futuros.
 - Testes automatizados das secoes, CTAs, comportamento responsivo e analytics.
@@ -97,13 +97,9 @@ Hoje essa camada emite `CustomEvent` no navegador. Uma integracao futura com GA4
 
 ## Conteudo e conversao
 
-Todos os CTAs principais apontam para:
+Os CTAs de diagnóstico e casamento apontam para `https://tally.so/r/Bz068e`. O helper preserva os parâmetros atuais da página, incluindo UTMs. Celebrações, eventos corporativos e consultas de disponibilidade abrem o WhatsApp `+55 47 99647-4116` com mensagem contextual.
 
-```text
-https://tally.so/r/Bz068e
-```
-
-O projeto nao cria depoimentos, reviews ou promessas falsas. A secao de confianca usa apenas texto institucional sobre apoio de profissionais do mercado de eventos.
+O projeto nao publica depoimentos, avaliações, portfolio ou certificações porque esses materiais não foram enviados. Diferenciais e processo vêm das respostas da profissional ao briefing.
 
 ## Deploy na Cloudflare Workers
 
@@ -169,7 +165,8 @@ Teste apos publicar:
 - Abra a URL gerada pela Cloudflare.
 - Abra o dominio customizado com HTTPS.
 - Teste mobile e desktop.
-- Clique nos CTAs e confirme o redirecionamento para o Tally.
+- Clique nos CTAs de casamento e confirme a abertura do formulário Tally com os parâmetros de campanha.
+- Clique nos CTAs de outros eventos e confirme a abertura da conversa no WhatsApp.
 - Verifique se imagens, favicon, Open Graph e estilos carregam.
 - Atualize a pagina em qualquer rota e confirme que nao ha erro 404.
 - Abra o console do navegador e confirme que nao ha erros de assets ou JavaScript.

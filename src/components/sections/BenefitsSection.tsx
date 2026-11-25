@@ -7,16 +7,26 @@ export function BenefitsSection() {
   const sectionRef = useSectionAnalytics('benefits');
 
   return (
-    <section className="section section--light" ref={sectionRef} aria-labelledby="benefits-title">
+    <section
+      className="section section--light benefits"
+      ref={sectionRef}
+      aria-labelledby="benefits-title"
+    >
       <Container>
-        <SectionHeader
-          eyebrow="Mais clareza antes das grandes decisões"
-          title="Planeje seu casamento com mais segurança"
-        />
+        <div data-reveal>
+          <SectionHeader
+            titleId="benefits-title"
+            eyebrow="Diferenciais de condução"
+            title="Muito além da organização"
+            text="Da montagem à recepção, a equipe acompanha cada etapa do evento."
+          />
+        </div>
         <div className="benefit-grid">
-          {benefits.map((benefit) => (
-            <article className="benefit-card reveal" key={benefit.title}>
-              <span className="benefit-card__mark" aria-hidden="true" />
+          {benefits.map((benefit, index) => (
+            <article className="benefit-card" key={benefit.title} data-reveal>
+              <span className="benefit-card__mark" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
               <h3>{benefit.title}</h3>
               <p>{benefit.description}</p>
             </article>
